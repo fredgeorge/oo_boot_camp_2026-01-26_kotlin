@@ -1,10 +1,10 @@
-### oo_boot_camp_template_kotlin
+### oo_boot_camp_2026-01-26_kotlin
 
 Copyright (c) 2025-26 by Fred George  
 author: Fred George  fredgeorge@acm.org  
 May be used freely except for training; license required for training.
 
-## OO Boot Camp starting template for Kotlin class
+## OO Boot Camp for Norwegian client, January 2026
 
 Kotlin is relatively easy to setup with IntelliJ IDEA.
 Gradle is used for building and testing the project, and is a
