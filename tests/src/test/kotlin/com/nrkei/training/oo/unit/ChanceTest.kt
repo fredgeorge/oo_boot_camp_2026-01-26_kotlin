@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+
 // Ensures Chance works correctly
 internal class ChanceTest {
 
@@ -44,5 +45,13 @@ internal class ChanceTest {
         assertEquals(LIKELY, !!LIKELY)
         assertEquals(IMPOSSIBLE, CERTAIN.not())
         assertEquals(EQUALLY_LIKELY, EQUALLY_LIKELY.not())
+    }
+
+    @Test fun and() {
+        assertEquals(UNLIKELY, EQUALLY_LIKELY and EQUALLY_LIKELY)
+        assertEquals(Chance(0.1875), LIKELY and UNLIKELY)
+        assertEquals(LIKELY and UNLIKELY, UNLIKELY and LIKELY)
+        assertEquals(IMPOSSIBLE, LIKELY and IMPOSSIBLE)
+        assertEquals(LIKELY, CERTAIN and LIKELY)
     }
 }
