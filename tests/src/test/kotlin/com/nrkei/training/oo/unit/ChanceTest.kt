@@ -34,7 +34,6 @@ internal class ChanceTest {
         assertTrue(LIKELY in hashSetOf(Chance(0.75)))
         assertEquals(1, hashSetOf(LIKELY, Chance(0.75)).size)
     }
-
     @Test fun hash() {
         assertEquals(LIKELY.hashCode(), Chance(0.75).hashCode())
         assertEquals(Chance(0.3).hashCode(), (!!Chance(0.3)).hashCode())
@@ -55,5 +54,12 @@ internal class ChanceTest {
         assertEquals(LIKELY and UNLIKELY, UNLIKELY and LIKELY)
         assertEquals(IMPOSSIBLE, LIKELY and IMPOSSIBLE)
         assertEquals(LIKELY, CERTAIN and LIKELY)
+    }
+
+    @Test internal fun or() {
+        assertEquals(LIKELY, EQUALLY_LIKELY or EQUALLY_LIKELY)
+        assertEquals(Chance(0.8125), LIKELY or UNLIKELY)
+        assertEquals(LIKELY or UNLIKELY, UNLIKELY or LIKELY)
+        assertEquals(LIKELY, LIKELY or IMPOSSIBLE)
     }
 }
