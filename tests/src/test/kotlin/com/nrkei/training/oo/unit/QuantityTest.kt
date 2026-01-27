@@ -6,8 +6,11 @@
 
 package com.nrkei.training.oo.unit
 
+import com.nrkei.training.oo.quantities.Unit.Companion.cups
+import com.nrkei.training.oo.quantities.Unit.Companion.gallons
 import com.nrkei.training.oo.quantities.Unit.Companion.pints
 import com.nrkei.training.oo.quantities.Unit.Companion.tablespoons
+import com.nrkei.training.oo.quantities.Unit.Companion.teaspoons
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -25,6 +28,8 @@ internal class QuantityTest {
 
     @Test
     fun `equality of different units`() {
+        assertEquals(8.tablespoons, 0.5.cups)
+        assertEquals(768.teaspoons, 1.gallons)
         assertNotEquals(8.tablespoons, 8.pints)
     }
 
@@ -35,5 +40,6 @@ internal class QuantityTest {
 
     @Test fun hash() {
         assertEquals(8.tablespoons.hashCode(), 8.tablespoons.hashCode())
+        assertEquals(8.tablespoons.hashCode(), 0.5.cups.hashCode())
     }
 }

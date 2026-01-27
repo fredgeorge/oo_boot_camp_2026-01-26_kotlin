@@ -6,16 +6,19 @@
 
 package com.nrkei.training.oo.quantities
 
+import java.awt.geom.CubicCurve2D
+
 // Understands a specific metric
-class Unit private constructor() {
+class Unit {
+
     companion object {
         private val TEASPOON = Unit()
-        private val TABLESPOON = Unit()
-        private val OUNCE = Unit()
-        private val CUP = Unit()
-        private val PINT = Unit()
-        private val QUART = Unit()
-        private val GALLON = Unit()
+        private val TABLESPOON = Unit(3, TEASPOON)
+        private val OUNCE = Unit(2, TABLESPOON)
+        private val CUP = Unit(8, OUNCE)
+        private val PINT = Unit(2, CUP)
+        private val QUART = Unit(2, PINT)
+        private val GALLON = Unit(4, QUART)
 
         val Number.teaspoons get() = Quantity(this, TEASPOON)
         val Number.tablespoons get() = Quantity(this, TABLESPOON)
@@ -24,6 +27,18 @@ class Unit private constructor() {
         val Number.pints get() = Quantity(this, PINT)
         val Number.quarts get() = Quantity(this, QUART)
         val Number.gallons get() = Quantity(this, GALLON)
-
     }
+
+    private val baseUnitRatio: Double
+
+    private constructor() {
+        baseUnitRatio = 1.0
+    }
+
+    private constructor(relativeRatio: Number, relativeUnit: Unit) {
+        baseUnitRatio = relativeRatio.toDouble() * relativeUnit.baseUnitRatio
+    }
+
+    internal fun convertedAmount(otherAmount: Double, other: Unit) =
+        otherAmount * other.baseUnitRatio / this.baseUnitRatio
 }
