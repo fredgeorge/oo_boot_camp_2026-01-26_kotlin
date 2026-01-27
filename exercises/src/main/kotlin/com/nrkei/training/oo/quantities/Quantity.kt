@@ -7,7 +7,7 @@
 package com.nrkei.training.oo.quantities
 
 // Understands a specific measurement
-class Quantity(amount: Number, private val unit: Unit) {
+class Quantity internal constructor(amount: Number, private val unit: Unit) {
     private val amount = amount.toDouble()
 
     override fun equals(other: Any?) =

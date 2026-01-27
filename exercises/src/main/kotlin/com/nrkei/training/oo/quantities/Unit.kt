@@ -9,12 +9,21 @@ package com.nrkei.training.oo.quantities
 // Understands a specific metric
 class Unit private constructor() {
     companion object {
-        val TEASPOON = Unit()
-        val TABLESPOON = Unit()
-        val OUNCE = Unit()
-        val CUP = Unit()
-        val PINT = Unit()
-        val QUART = Unit()
-        val GALLON = Unit()
+        private val TEASPOON = Unit()
+        private val TABLESPOON = Unit()
+        private val OUNCE = Unit()
+        private val CUP = Unit()
+        private val PINT = Unit()
+        private val QUART = Unit()
+        private val GALLON = Unit()
+
+        val Number.teaspoons get() = Quantity(this, TEASPOON)
+        val Number.tablespoons get() = Quantity(this, TABLESPOON)
+        val Number.ounces get() = Quantity(this, OUNCE)
+        val Number.cups get() = Quantity(this, CUP)
+        val Number.pints get() = Quantity(this, PINT)
+        val Number.quarts get() = Quantity(this, QUART)
+        val Number.gallons get() = Quantity(this, GALLON)
+
     }
 }

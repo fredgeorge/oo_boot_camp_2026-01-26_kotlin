@@ -6,9 +6,8 @@
 
 package com.nrkei.training.oo.unit
 
-import com.nrkei.training.oo.quantities.Quantity
-import com.nrkei.training.oo.quantities.Unit.Companion.PINT
-import com.nrkei.training.oo.quantities.Unit.Companion.TABLESPOON
+import com.nrkei.training.oo.quantities.Unit.Companion.pints
+import com.nrkei.training.oo.quantities.Unit.Companion.tablespoons
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -18,23 +17,23 @@ import org.junit.jupiter.api.Test
 internal class QuantityTest {
 
     @Test fun `equality of like units`() {
-        assertEquals(Quantity(8.0, TABLESPOON), Quantity(8, TABLESPOON))
-        assertNotEquals(Quantity(8, TABLESPOON), Quantity(6.0, TABLESPOON))
-        assertNotEquals(Quantity(8, TABLESPOON), Any())
-        assertNotEquals(Quantity(8, TABLESPOON), null)
+        assertEquals(8.0.tablespoons, 8.tablespoons)
+        assertNotEquals(8.tablespoons, 6.tablespoons)
+        assertNotEquals(8.tablespoons, Any())
+        assertNotEquals(8.tablespoons, null)
     }
 
     @Test
     fun `equality of different units`() {
-        assertNotEquals(Quantity(8, TABLESPOON), Quantity(8, PINT))
+        assertNotEquals(8.tablespoons, 8.pints)
     }
 
     @Test fun `Chance in sets`() {
-        assertTrue(Quantity(8, TABLESPOON) in hashSetOf(Quantity(8, TABLESPOON)))
-        assertEquals(1, hashSetOf(Quantity(8, TABLESPOON), Quantity(8, TABLESPOON)).size)
+        assertTrue(8.tablespoons in hashSetOf(8.tablespoons))
+        assertEquals(1, hashSetOf(8.tablespoons, 8.tablespoons).size)
     }
 
     @Test fun hash() {
-        assertEquals(Quantity(8, TABLESPOON).hashCode(), Quantity(8, TABLESPOON).hashCode())
+        assertEquals(8.tablespoons.hashCode(), 8.tablespoons.hashCode())
     }
 }
