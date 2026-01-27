@@ -46,18 +46,24 @@ class Unit {
 
     }
 
+    private val baseUnit: Unit
     private val baseUnitRatio: Double
 
     private constructor() {
+        baseUnit = this
         baseUnitRatio = 1.0
     }
 
     private constructor(relativeRatio: Number, relativeUnit: Unit) {
+        baseUnit = relativeUnit.baseUnit
         baseUnitRatio = relativeRatio.toDouble() * relativeUnit.baseUnitRatio
     }
 
     internal fun convertedAmount(otherAmount: Double, other: Unit) =
-        otherAmount * other.baseUnitRatio / this.baseUnitRatio
+        (otherAmount * other.baseUnitRatio / this.baseUnitRatio)
+            .also { require (this.isCompatible(other)) { "Incompatible units for arithmetic" } }
 
     internal fun hashCode(amount: Double) = (amount * baseUnitRatio).hashCode()
+
+    internal fun isCompatible(other: Unit) = this.baseUnit == other.baseUnit
 }

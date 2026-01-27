@@ -9,6 +9,7 @@ package com.nrkei.training.oo.unit
 import com.nrkei.training.oo.quantities.Unit.Companion.chains
 import com.nrkei.training.oo.quantities.Unit.Companion.cups
 import com.nrkei.training.oo.quantities.Unit.Companion.fathoms
+import com.nrkei.training.oo.quantities.Unit.Companion.feet
 import com.nrkei.training.oo.quantities.Unit.Companion.furlongs
 import com.nrkei.training.oo.quantities.Unit.Companion.gallons
 import com.nrkei.training.oo.quantities.Unit.Companion.inches
@@ -60,5 +61,14 @@ internal class QuantityTest {
         assertEquals(0.5.quarts, +6.tablespoons + 13.ounces)
         assertEquals((-6).tablespoons, -6.tablespoons)
         assertEquals((-0.5).pints, 10.tablespoons - 13.ounces)
+    }
+
+    @Test fun `cross metric types`() {
+        assertNotEquals(1.inches, 1.teaspoons)
+        assertNotEquals(4.ounces, 2.feet)
+    }
+
+    @Test fun `incompatible units`() {
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> { 3.yards - 4.tablespoons }
     }
 }
