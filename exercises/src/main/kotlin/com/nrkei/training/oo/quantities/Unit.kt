@@ -7,7 +7,7 @@
 package com.nrkei.training.oo.quantities
 
 // Understands a specific metric
-class Unit {
+class Unit private constructor() {
     companion object {
         val TEASPOON = Unit()
         val TABLESPOON = Unit()
