@@ -15,4 +15,6 @@ class Quantity(amount: Number, private val unit: Unit) {
 
     private fun equals(other: Quantity) =
         this.amount == other.amount && this.unit == other.unit
+
+    override fun hashCode() = amount.hashCode() * 31 + unit.hashCode()
 }
