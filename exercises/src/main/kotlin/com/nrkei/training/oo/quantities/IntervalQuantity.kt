@@ -7,29 +7,20 @@
 package com.nrkei.training.oo.quantities
 
 // Understands a specific measurement
-class Quantity internal constructor(amount: Number, private val unit: Unit) {
+class IntervalQuantity internal constructor(amount: Number, private val unit: Unit) {
     private val amount = amount.toDouble()
 
     override fun equals(other: Any?) =
-        this === other || other is Quantity && this.equals(other)
+        this === other || other is IntervalQuantity && this.equals(other)
 
-    private fun equals(other: Quantity) =
+    private fun equals(other: IntervalQuantity) =
         this.isCompatible(other) && this.amount == convertedAmount(other)
 
-    private fun isCompatible(other: Quantity) =
+    private fun isCompatible(other: IntervalQuantity) =
         this.unit.isCompatible(other.unit)
 
-    private fun convertedAmount(other: Quantity) =
+    private fun convertedAmount(other: IntervalQuantity) =
         this.unit.convertedAmount(other.amount, other.unit)
 
     override fun hashCode() = unit.hashCode(amount)
-
-    operator fun plus(other: Quantity) =
-        Quantity(this.amount + convertedAmount(other), this.unit)
-
-    operator fun unaryMinus() = Quantity(-amount, unit)
-
-    operator fun unaryPlus() = this
-
-    operator fun minus(other: Quantity) = this + -other
 }
