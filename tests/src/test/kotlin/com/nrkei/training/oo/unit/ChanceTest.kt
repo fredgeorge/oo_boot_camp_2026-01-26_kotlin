@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 // Ensures Chance works correctly
 internal class ChanceTest {
@@ -61,5 +62,10 @@ internal class ChanceTest {
         assertEquals(Chance(0.8125), LIKELY or UNLIKELY)
         assertEquals(LIKELY or UNLIKELY, UNLIKELY or LIKELY)
         assertEquals(LIKELY, LIKELY or IMPOSSIBLE)
+    }
+
+    @Test internal fun `invalid fractions`() {
+        assertThrows<IllegalArgumentException> { Chance(-0.01) }
+        assertThrows<IllegalArgumentException> { Chance(1.01) }
     }
 }

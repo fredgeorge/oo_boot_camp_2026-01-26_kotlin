@@ -12,15 +12,21 @@ class Chance(likelihoodAsFraction: Number) {
         private const val CERTAIN_FRACTION = 1.0
         private const val EPSILON = 1e-10
     }
+
+    init {
+        require(likelihoodAsFraction.toDouble() in 0.0..CERTAIN_FRACTION)
+        { "Likelihood value must be between 0.0 and 1.0" }
+    }
+
     private val fraction = likelihoodAsFraction.toDouble()
 
     override fun equals(other: Any?) =
         this === other || other is Chance && this.equals(other)
 
     private fun equals(other: Chance) =
-        ((this.fraction - other.fraction) / EPSILON)< EPSILON
+        ((this.fraction - other.fraction) / EPSILON) < EPSILON
 
-    override fun hashCode() = (fraction/EPSILON).toLong().hashCode()
+    override fun hashCode() = (fraction / EPSILON).toLong().hashCode()
 
     operator fun not() = Chance(CERTAIN_FRACTION - fraction)
 
