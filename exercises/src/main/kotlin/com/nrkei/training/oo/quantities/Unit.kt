@@ -6,8 +6,6 @@
 
 package com.nrkei.training.oo.quantities
 
-import java.awt.geom.CubicCurve2D
-
 // Understands a specific metric
 class Unit {
 
