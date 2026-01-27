@@ -6,13 +6,20 @@
 
 package com.nrkei.training.oo.unit
 
+import com.nrkei.training.oo.quantities.Unit.Companion.chains
 import com.nrkei.training.oo.quantities.Unit.Companion.cups
+import com.nrkei.training.oo.quantities.Unit.Companion.fathoms
+import com.nrkei.training.oo.quantities.Unit.Companion.furlongs
 import com.nrkei.training.oo.quantities.Unit.Companion.gallons
+import com.nrkei.training.oo.quantities.Unit.Companion.inches
+import com.nrkei.training.oo.quantities.Unit.Companion.leagues
+import com.nrkei.training.oo.quantities.Unit.Companion.miles
 import com.nrkei.training.oo.quantities.Unit.Companion.ounces
 import com.nrkei.training.oo.quantities.Unit.Companion.pints
 import com.nrkei.training.oo.quantities.Unit.Companion.quarts
 import com.nrkei.training.oo.quantities.Unit.Companion.tablespoons
 import com.nrkei.training.oo.quantities.Unit.Companion.teaspoons
+import com.nrkei.training.oo.quantities.Unit.Companion.yards
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -33,6 +40,9 @@ internal class QuantityTest {
         assertEquals(8.tablespoons, 0.5.cups)
         assertEquals(768.teaspoons, 1.gallons)
         assertNotEquals(8.tablespoons, 8.pints)
+        assertEquals(1.miles, (12 * 5280).inches)
+        assertEquals(1.5.leagues, 36.furlongs)
+        assertEquals(22.fathoms, 2.chains)
     }
 
     @Test fun `Chance in sets`() {
@@ -43,6 +53,7 @@ internal class QuantityTest {
     @Test fun hash() {
         assertEquals(8.tablespoons.hashCode(), 8.tablespoons.hashCode())
         assertEquals(8.tablespoons.hashCode(), 0.5.cups.hashCode())
+        assertEquals(18.inches.hashCode(), 0.5.yards.hashCode())
     }
 
     @Test fun arithmetic() {
