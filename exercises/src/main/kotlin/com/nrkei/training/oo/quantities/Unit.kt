@@ -41,4 +41,6 @@ class Unit {
 
     internal fun convertedAmount(otherAmount: Double, other: Unit) =
         otherAmount * other.baseUnitRatio / this.baseUnitRatio
+
+    internal fun hashCode(amount: Double) = (amount * baseUnitRatio).hashCode()
 }

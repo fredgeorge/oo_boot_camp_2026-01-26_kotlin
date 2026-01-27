@@ -19,5 +19,5 @@ class Quantity internal constructor(amount: Number, private val unit: Unit) {
     private fun convertedAmount(other: Quantity) =
         this.unit.convertedAmount(other.amount, other.unit)
 
-    override fun hashCode() = amount.hashCode() * 31 + unit.hashCode()
+    override fun hashCode() = unit.hashCode(amount)
 }
