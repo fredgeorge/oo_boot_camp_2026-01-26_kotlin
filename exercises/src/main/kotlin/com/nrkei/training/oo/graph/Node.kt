@@ -17,15 +17,15 @@ class Node {
 
     infix fun cost(destination: Node) = cost(destination, Link.LEAST_COST)
 
-    infix fun path(destination: Node) = path(destination, noVisitedNodes)
+    infix fun path(destination: Node) = path(destination, noVisitedNodes, Path::cost)
         .also { require(it != Path.NONE) { "Destination cannot be reached" } }
 
-    internal fun path(destination: Node, visitedNodes: List<Node>): Path {
+    internal fun path(destination: Node, visitedNodes: List<Node>, strategy: PathStrategy): Path {
         if (this == destination) return ActualPath()
         if (this in visitedNodes) return Path.NONE
         return links
-            .map { it.path(destination, visitedNodes + this) }
-            .minByOrNull { it.cost() }
+            .map { it.path(destination, visitedNodes + this, strategy) }
+            .minByOrNull { strategy(it).toDouble() }
             ?: Path.NONE
     }
 
