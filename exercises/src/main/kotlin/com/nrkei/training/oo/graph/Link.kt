@@ -11,10 +11,15 @@ internal class Link internal constructor(private val cost: Double, private val t
     companion object {
         internal val LEAST_COST = {cost: Double -> cost}
         internal val FEWEST_HOPS = {_: Double -> 1.0}
+
+        internal fun List<Link>.totalCost() = sumOf { it.cost }
     }
 
     internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy) =
         target.cost(destination, visitedNodes, strategy) + strategy(cost)
+
+    internal fun path(destination: Node, visitedNodes: List<Node>) =
+        target.path(destination, visitedNodes)?.also{ it.prepend(this) }
 }
 
 internal typealias CostStrategy = (Double) -> Double
