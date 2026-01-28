@@ -14,7 +14,7 @@ abstract class Path internal constructor() {
         internal val NONE: Path = NoPath()
     }
 
-    open internal fun prepend(link: Link)  {}
+    internal open fun prepend(link: Link)  {}
 
     abstract fun cost(): Double
 
@@ -30,7 +30,7 @@ abstract class Path internal constructor() {
         override fun hopCount() = links.size
     }
 
-    private class NoPath(): Path() {
+    private class NoPath: Path() {
         override fun cost() = Double.POSITIVE_INFINITY
         override fun hopCount() = Int.MAX_VALUE
     }
