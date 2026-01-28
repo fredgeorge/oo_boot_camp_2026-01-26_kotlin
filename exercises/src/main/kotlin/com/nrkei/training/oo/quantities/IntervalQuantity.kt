@@ -6,8 +6,11 @@
 
 package com.nrkei.training.oo.quantities
 
+import com.nrkei.training.oo.order.Orderable
+
 // Understands a specific measurement
-open class IntervalQuantity internal constructor(amount: Number, protected val unit: Unit) {
+open class IntervalQuantity internal constructor(amount: Number, protected val unit: Unit)
+    : Orderable<IntervalQuantity> {
     protected val amount = amount.toDouble()
 
     override fun equals(other: Any?) =
@@ -23,4 +26,7 @@ open class IntervalQuantity internal constructor(amount: Number, protected val u
         this.unit.convertedAmount(other.amount, other.unit)
 
     override fun hashCode() = unit.hashCode(amount)
+
+    override fun isBetterThan(other: IntervalQuantity) =
+        this.amount > convertedAmount(other)
 }
