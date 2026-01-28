@@ -1,10 +1,4 @@
-/*
- * Copyright (c) 2022-26 by Fred George
- * May be used freely except for training; license required for training.
- * @author Fred George  fredgeorge@acm.org
- */
-
-package com.nrkei.training.oo
+package com.nrkei.training.oo.graph
 
 // Understands its neighbors
 class Node {
@@ -13,9 +7,9 @@ class Node {
         private val noVisitedNodes = emptyList<Node>()
     }
 
-    private val neighbors = mutableListOf<Node>()
+    private val links = mutableListOf<Link>()
 
-    infix fun to(neighbor: Node) = neighbor.also { neighbors.add(it) }
+    infix fun to(neighbor: Node) = neighbor.also { links.add(Link(it)) }
 
     infix fun canReach(destination: Node) =
         hopCount(destination, noVisitedNodes) != UNREACHABLE
@@ -24,11 +18,11 @@ class Node {
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
         .toInt()
 
-    private fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
+    internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
         if (this == destination) return 0.0
         if (this in visitedNodes) return UNREACHABLE
-        return neighbors
-            .minOfOrNull { it.hopCount(destination, visitedNodes + this) + 1 }
+        return links
+            .minOfOrNull { it.hopCount(destination, visitedNodes + this) }
             ?: UNREACHABLE
 
     }

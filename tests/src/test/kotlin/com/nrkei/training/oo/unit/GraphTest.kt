@@ -6,7 +6,7 @@
 
 package com.nrkei.training.oo.unit
 
-import com.nrkei.training.oo.Node
+import com.nrkei.training.oo.graph.Node
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
