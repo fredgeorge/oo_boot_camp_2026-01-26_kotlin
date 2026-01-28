@@ -24,7 +24,7 @@ class Node {
         if (this == destination) return ActualPath()
         if (this in visitedNodes) return Path.NONE
         return links
-            .mapNotNull { it.path(destination, visitedNodes + this) }
+            .map { it.path(destination, visitedNodes + this) }
             .minByOrNull { it.cost() }
             ?: Path.NONE
     }
