@@ -11,11 +11,12 @@ class Node {
     infix fun canReach(destination: Node) =
         cost(destination, noVisitedNodes, Link.LEAST_COST) != UNREACHABLE
 
-    infix fun hopCount(destination: Node) = cost(destination, noVisitedNodes, Link.FEWEST_HOPS)
-        .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
-        .toInt()
+    infix fun hopCount(destination: Node) = cost(destination, Link.FEWEST_HOPS).toInt()
 
-    infix fun cost(destination: Node) = cost(destination, noVisitedNodes, Link.LEAST_COST)
+    infix fun cost(destination: Node) = cost(destination, Link.LEAST_COST)
+
+    private fun cost(destination: Node, strategy: CostStrategy) =
+        cost(destination, noVisitedNodes, strategy)
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
 
     internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy): Double {
