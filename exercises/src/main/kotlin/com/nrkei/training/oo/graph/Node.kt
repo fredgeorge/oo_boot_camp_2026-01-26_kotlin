@@ -6,13 +6,12 @@ class Node {
         private const val UNREACHABLE = Double.POSITIVE_INFINITY
         private val noVisitedNodes = emptyList<Node>()
     }
-
     private val links = mutableListOf<Link>()
 
     infix fun canReach(destination: Node) =
-        hopCount(destination, noVisitedNodes) != UNREACHABLE
+        cost(destination, noVisitedNodes, Link.LEAST_COST) != UNREACHABLE
 
-    infix fun hopCount(destination: Node) = hopCount(destination, noVisitedNodes)
+    infix fun hopCount(destination: Node) = cost(destination, noVisitedNodes, Link.FEWEST_HOPS)
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
         .toInt()
 
@@ -24,14 +23,6 @@ class Node {
         if (this in visitedNodes) return UNREACHABLE
         return links
             .minOfOrNull { it.cost(destination, visitedNodes + this, strategy) }
-            ?: UNREACHABLE
-    }
-
-    internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
-        if (this == destination) return 0.0
-        if (this in visitedNodes) return UNREACHABLE
-        return links
-            .minOfOrNull { it.hopCount(destination, visitedNodes + this) }
             ?: UNREACHABLE
     }
 
