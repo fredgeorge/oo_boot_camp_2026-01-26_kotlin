@@ -12,6 +12,7 @@ class Node {
         private const val UNREACHABLE = Double.POSITIVE_INFINITY
         private val noVisitedNodes = emptyList<Node>()
     }
+
     private val neighbors = mutableListOf<Node>()
 
     infix fun to(neighbor: Node) = neighbor.also { neighbors.add(it) }
@@ -26,11 +27,9 @@ class Node {
     private fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
         if (this == destination) return 0.0
         if (this in visitedNodes) return UNREACHABLE
-        var champion = UNREACHABLE
-        for (neighbor in neighbors) {
-            val challenger = neighbor.hopCount(destination, visitedNodes + this) + 1
-            if (challenger < champion) champion = challenger
-        }
-        return champion
+        return neighbors
+            .minOfOrNull { it.hopCount(destination, visitedNodes + this) + 1 }
+            ?: UNREACHABLE
+
     }
 }
