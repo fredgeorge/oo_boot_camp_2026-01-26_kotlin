@@ -16,7 +16,8 @@ class Node {
 
     infix fun to(neighbor: Node) = neighbor.also { neighbors.add(it) }
 
-    infix fun canReach(destination: Node) = canReach(destination, noVisitedNodes)
+    infix fun canReach(destination: Node) =
+        hopCount(destination, noVisitedNodes) != UNREACHABLE
 
     infix fun hopCount(destination: Node) = hopCount(destination, noVisitedNodes)
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
@@ -30,12 +31,5 @@ class Node {
                 if (it != UNREACHABLE) return it + 1
             }
         return UNREACHABLE
-    }
-
-    private fun canReach(destination: Node, visitedNodes: MutableList<Node>): Boolean {
-        if (this == destination) return true
-        if (this in visitedNodes) return false
-        visitedNodes.add(this)
-        return neighbors.any { neighbor -> neighbor.canReach(destination, visitedNodes) }
     }
 }
