@@ -11,10 +11,7 @@ interface Orderable<T> {
     fun isBetterThan(other: T): Boolean
 }
 
-fun <T: Orderable<T>> List<T>.bestOrNull(): T? {
-    if (isEmpty()) return null
-    var champion = first()
-    for (challenger in this)
-        if (challenger.isBetterThan(champion)) champion = challenger
-    return champion
-}
+fun <T : Orderable<T>> List<T>.bestOrNull() =
+    this.reduceOrNull { champion, challenger ->
+        if (challenger.isBetterThan(champion)) challenger else champion
+    }
