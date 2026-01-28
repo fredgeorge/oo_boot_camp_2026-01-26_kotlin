@@ -19,7 +19,7 @@ internal class Link internal constructor(private val cost: Double, private val t
         target.cost(destination, visitedNodes, strategy) + strategy(cost)
 
     internal fun path(destination: Node, visitedNodes: List<Node>) =
-        target.path(destination, visitedNodes)?.also{ it.prepend(this) }
+        target.path(destination, visitedNodes).also{ it.prepend(this) }
 }
 
 internal typealias CostStrategy = (Double) -> Double
