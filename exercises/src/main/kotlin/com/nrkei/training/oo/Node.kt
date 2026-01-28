@@ -19,8 +19,6 @@ class Node {
         if (this == destination) return true
         if (this in visitedNodes) return false
         visitedNodes.add(this)
-        for (neighbor in neighbors)
-            if (neighbor.canReach(destination, visitedNodes)) return true
-        return false
+        return neighbors.any { neighbor -> neighbor.canReach(destination, visitedNodes) }
     }
 }
