@@ -28,9 +28,8 @@ class Node {
         if (this in visitedNodes) return UNREACHABLE
         var champion = UNREACHABLE
         for (neighbor in neighbors) {
-            val challenger = neighbor.hopCount(destination, visitedNodes + this)
-            if (challenger == UNREACHABLE) continue
-            if (champion == UNREACHABLE || challenger + 1 < champion) champion = challenger + 1
+            val challenger = neighbor.hopCount(destination, visitedNodes + this) + 1
+            if (challenger < champion) champion = challenger
         }
         return champion
     }
