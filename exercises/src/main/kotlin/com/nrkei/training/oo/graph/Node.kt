@@ -16,14 +16,14 @@ class Node {
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
         .toInt()
 
-    infix fun cost(destination: Node) = cost(destination, noVisitedNodes)
+    infix fun cost(destination: Node) = cost(destination, noVisitedNodes, Link.LEAST_COST)
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
 
-    internal fun cost(destination: Node, visitedNodes: List<Node>): Double {
+    internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy): Double {
         if (this == destination) return 0.0
         if (this in visitedNodes) return UNREACHABLE
         return links
-            .minOfOrNull { it.cost(destination, visitedNodes + this) }
+            .minOfOrNull { it.cost(destination, visitedNodes + this, strategy) }
             ?: UNREACHABLE
     }
 
