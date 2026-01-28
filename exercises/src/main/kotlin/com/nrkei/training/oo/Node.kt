@@ -10,9 +10,9 @@ package com.nrkei.training.oo
 class Node {
     companion object {
         private const val UNREACHABLE = -1
+        private val noVisitedNodes = emptyList<Node>()
     }
     private val neighbors = mutableListOf<Node>()
-    private val noVisitedNodes get() = mutableListOf<Node>()
 
     infix fun to(neighbor: Node) = neighbor.also { neighbors.add(it) }
 
@@ -22,13 +22,12 @@ class Node {
     infix fun hopCount(destination: Node) = hopCount(destination, noVisitedNodes)
         .also { require(it != UNREACHABLE) { "Destination cannot be reached" } }
 
-    private fun hopCount(destination: Node, visitedNodes: MutableList<Node>): Int {
+    private fun hopCount(destination: Node, visitedNodes: List<Node>): Int {
         if (this == destination) return 0
         if (this in visitedNodes) return UNREACHABLE
-        visitedNodes.add(this)
         var champion = UNREACHABLE
         for (neighbor in neighbors) {
-            val challenger = neighbor.hopCount(destination, visitedNodes)
+            val challenger = neighbor.hopCount(destination, visitedNodes + this)
             if (challenger == UNREACHABLE) continue
             if (champion == UNREACHABLE || challenger + 1 < champion) champion = challenger + 1
         }
