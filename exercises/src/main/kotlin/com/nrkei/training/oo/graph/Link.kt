@@ -12,9 +12,6 @@ internal class Link internal constructor(private val cost: Double, private val t
         internal fun List<Link>.totalCost() = sumOf { it.cost }
     }
 
-    internal fun paths(destination: Node, visitedNodes: List<Node>) =
-        target.paths(destination, visitedNodes).onEach{ it.prepend(this) }
-
     internal fun paths(visitedNodes: List<Node>) =
         target.paths(visitedNodes).onEach{ it.prepend(this) }
 }
